@@ -13,6 +13,7 @@ my ($somatic,$normal_freq_cutoff,$tumor_freq_cutoff,$build,$rpkm_cutoff,$max_mut
 my ($len,$path,$line,@items,@items1,$header,%aa,$type);
 my ($annovar_db,$transcript,$mutation,$class,$extracted);
 my %neoantigen_len=("I"=>[8..11],"II"=>[15]); # length of neoantigen for HLA A/B/DRB/DQB
+my $any_fasta_written=0;
 
 ######  filter somatic mutations  ##########
 
@@ -93,6 +94,7 @@ while ($line=<FILE_IN>)
         {
           foreach $len (@{$neoantigen_len{$class}})
           {
+            $any_fasta_written=1;
             open(FILE_OUT,">>".$somatic."_".$class."_".$len.".fa") or die "Error: Cannot write to fasta files for predicting affinities!\n";
             $extracted=extract_seq($len,$aa{"WT"},$aa{"MU"});
             if (length($extracted)>=$len) {print FILE_OUT $mutation."\n".$extracted."\n";}
@@ -115,6 +117,7 @@ while ($line=<FILE_IN>)
   }
 }
 
+if ($any_fasta_written==0) {die("Warning: Not any event of changed coding sequence found! Exit successfully!\n");}
 close(FILE_IN);
 
 sub extract_seq

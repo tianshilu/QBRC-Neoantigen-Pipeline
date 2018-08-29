@@ -2,7 +2,7 @@
 #
 # prerequisite in path: 
 # gzip, Rscript, iedb (MHC_I, MHC_II), featureCounts (>=1.6), novoalign, samtools (>=1.4), STAR (if providing RNA-Seq fastq files)
-# Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH, cp files under data/msa_for_athlates to Athlates_2014_04_26/db/msa), 
+# Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH, cp files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref), 
 # annovar (>=2017Jul16, humandb in default position), python (python 2)
 # mixcr (>=2.1.5), perl (version 5, Parallel::ForkManager installed)
 #
@@ -88,6 +88,11 @@ if (! -e $somatic."_filtered") {exit 1;}
 if ($fastq1 eq "bam") # given bam files 
 {
   system_call("perl ".$path."/bam2fastq.pl ".$fastq2." ".$output." ".$thread);
+  if (! -e $output."/fastq1.fastq")
+  {
+    print "Error: Fastq file doesn't exist!\n";
+    exit;
+  }
   system_call("perl ".$path."/hla.pl ".$output."/fastq1.fastq ".$output."/fastq2.fastq ".$output." ".$path." ".$thread);
 }elsif ($fastq1 ne "pre-existing") # given fastq files 
 {
@@ -111,6 +116,10 @@ system_call("perl ".$path."/affinity.pl ".$mhc_i." ".$mhc_ii." ".$somatic." ".$o
 system_call("Rscript ".$path."/expressed_neoantigen.R ".$rpkm_cutoff." ".$somatic." ".$output." ".$path." ".$expression_somatic);
 unlink($somatic."_filtered");
 
+# CSiN
+system("Rscript ".$path."/CSiN.R ".$output);
+system_call("rm -f -r ".$output."/_STARtmp");
+
 sub system_call
 {
   my $command=$_[0];
@@ -124,7 +133,7 @@ sub system_call
 #/project/BICF/shared/Kidney/Projects/Pancreatic_Mets/RAW/DNA/1620A-MK-312_S0_L001_R1_001.fastq.gz \
 #/project/BICF/shared/Kidney/Projects/Pancreatic_Mets/RAW/DNA/1620A-MK-312_S0_L001_R2_001.fastq.gz \
 #~/iproject/test/neoantigen/19424793_1.filtered.bam \
-#/home2/twang6/data/genomes/hg38/hg38_genes.gtf \
-#/home2/twang6/software/immune/mhc_i \
-#/home2/twang6/software/immune/mhc_ii \
+#/project/bioinformatics/Xiao_lab/shared/neoantigen/data/hg38/hg38_genes.gtf \
+#/project/bioinformatics/Xiao_lab/shared/neoantigen/code/mhc_i \
+#/project/bioinformatics/Xiao_lab/shared/neoantigen/code/mhc_ii \
 #3 1 32 50000

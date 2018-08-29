@@ -9,6 +9,7 @@ use warnings;
 
 my ($bam_file,$output,$thread)=@ARGV;
 my ($line,$name1,$name2,$read1,$read2,%reads);
+my $count=0; # number of lines that have been written
 
 # clean up
 print "bam2fq for ".$bam_file."\n";
@@ -16,8 +17,13 @@ system("rm -f -r ".$output."/sambamba_tmp");
 system("mkdir ".$output."/sambamba_tmp");
 unlink($output."/sorted.bam");
   
-# try sambamba for the first time
+# sambamba sort
 print "First sambamba sort\n";
+if (! -e $bam_file) 
+{
+  print $bam_file." doesn't exist!\n";
+  exit;
+}
 system("sambamba sort --memory-limit=64GB --tmpdir=".$output."/sambamba_tmp -o ".$output."/sorted.bam -N -t ".$thread.
   " -l 0 -u ".$bam_file);
 
@@ -31,8 +37,9 @@ if (!-e $output."/sorted.bam") # if sambamba sort fails, possibly due to problem
 
 # bam2fq
 print "Bam2fq\n";
-system("samtools bam2fq -1 ".$output."/tmp1.fastq -2 ".$output."/tmp2.fastq -n --threads ".$thread." ".$output."/sorted.bam");
+system("samtools bam2fq -0 ".$output."/tmp0.fastq -1 ".$output."/tmp1.fastq -2 ".$output."/tmp2.fastq -n --threads ".$thread." ".$output."/sorted.bam");
 unlink($output."/sorted.bam");
+unlink($output."/tmp0.fastq");
 
 print "Delete singletons\n";
 open(FILE_IN1,$output."/tmp1.fastq");
@@ -49,6 +56,7 @@ while ($name1=<FILE_IN1>)
   {
     print FILE_OUT1 $read1;
     print FILE_OUT2 $reads{$name1}; 
+    $count++;
     delete $reads{$name1};
   }else
   {
@@ -63,6 +71,7 @@ while ($name1=<FILE_IN1>)
     {
       print FILE_OUT2 $read2;
       print FILE_OUT1 $reads{$name2};
+      $count++;
       delete $reads{$name2};
     }else
     {
@@ -79,6 +88,7 @@ while ($name2=<FILE_IN2>)
   {
     print FILE_OUT2 $read2;
     print FILE_OUT1 $reads{$name2};
+    $count++;
     delete $reads{$name2};
   }else
   {
@@ -91,6 +101,14 @@ close(FILE_OUT2);
 
 close(FILE_IN1);
 close(FILE_IN2);
+
+# error checking
+if ($count<10000)
+{
+  print "Error: too few reads written!\n";
+  unlink($output."/fastq1.fastq");
+  unlink($output."/fastq2.fastq");
+}
 
 # clean up
 unlink($output."/tmp1.fastq");

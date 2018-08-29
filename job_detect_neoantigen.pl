@@ -1,4 +1,5 @@
 ###########  nucleus-specific sbatch wrapper for calling somatic mutations  #############
+# for other job submission system, you should be able to easily change "sbatch" to the appropriate command
 #
 # input format:
 # jobs: the batch job design file, it has 6 columns separated by \t, they correspond to the $somatic, $expression_somatic, 
@@ -47,7 +48,7 @@ while ($line=<JOB>)
   # write submission job
   @items=split("\t",$line);
   print SCRIPT "perl ".$path."/detect_neoantigen.pl ".$items[0]." ".$items[1]." ".$max_normal_cutoff." ".
-    $min_tumor_cutoff." ".$build." ".$items[2]." ".$items[3]." ".$items[4]." ".$items[5]." ".$gtf.
+    $min_tumor_cutoff." ".$build." ".abs_path($items[2])." ".$items[3]." ".$items[4]." ".$items[5]." ".$gtf.
     " ".$mhc_i." ".$mhc_ii." ".$percentile_cutoff." ".$rpkm_cutoff." ".$thread." ".$max_mutations."\n";
 
   if ($i % $n==0)
@@ -69,10 +70,11 @@ if ($i % $n!=0)
 }
 
 # perl /home2/twang6/software/immune/neoantigen/job_detect_neoantigen.pl \
-# /home2/twang6/software/immune/neoantigen/example/job.txt \
-# ~/example.sh 0.02 0.05 hg38 \
+# design.txt \
+# /project/bioinformatics/Xiao_lab/shared/neoantigen/code/neoantigen/example/example.sh \
+# 0.02 0.05 hg38 \
 # /home2/twang6/data/genomes/hg38/hg38_genes.gtf \
-# /home2/twang6/software/immune/mhc_i \
-# /home2/twang6/software/immune/mhc_ii \
+# /project/bioinformatics/Xiao_lab/shared/neoantigen/code/mhc_i \
+# /project/bioinformatics/Xiao_lab/shared/neoantigen/code/mhc_ii \
 # 3 1 32 50000 2
 
