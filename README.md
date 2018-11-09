@@ -2,11 +2,11 @@
 ## Introduction
 This neoantigen calling pipeline of Wang lab predicts neoantigens from exome sequencing data. It needs the somatic mutation calling results of the somatic calling pipeline (https://github.com/Somatic-pipeline/Somatic-pipeline.git), the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. The calculation of CSiN, which describes neoantigen clonal balance, is embedded in the pipeline.
 Please visit our website https://www.utsouthwestern.edu/labs/wang-tao/software/ and refer to our paper for more detail of somatic mutation calling pipeline:["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"](url peding). Please cite as ["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"](url peding).
-Dependencies
+## Dependencies
 gzip; Rscript; iedb (MHC_I, MHC_II); featureCounts (version>=1.6); novoalign; samtools (version>=1.4), STAR (if providing RNA sequencing fastq files); Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH, copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref); annovar (>=2017Jul16, humandb in default position); python (python 2); mixcr (>=2.1.5); perl (version 5, Parallel::ForkManager installed)
 ## Input files
 Exome sequencing can be fastq files or bam files. fastq files must be gzipped. You can choose to input expression data. Expression data can be fastq files single-end or paired-end, gzip-end. Expression data can also be bam files.
-Main procedures:
+## Main procedures:
 Only frameshift indels, non-frameshift indels, missense and stop-loss mutations that would lead to protein sequence changes and only somatic mutations whose variant allele frequencies (VAFs) were <0.02 in the normal sample and VAFs>0.05 in the tumor samples will be analyzed. For class I HLA proteins (A, B, C), the putative neoantigens of 8-11 amino acid in length are called, and for class II HLA proteins (DRB1 and DQB1/DQA1), the putative neoantigens of 15 amino acids in length are called. Class I and II HLA subtypes were predicted by the ATHLATES tool. Putative neoantigens with amino acid sequences exactly matching known human protein sequences were filtered out. For class I bindings, the IEDB-recommended mode (http://tools.iedb.org/main/) was used for prediction of binding affinities, while for class II binding, NetMHCIIpan embedded in the IEDB toolkit was used. Neoantigens were kept only if the predicted ranks of binding affinities were ≤2%. Tumor RNA-seq data were aligned to the reference genome using the STAR aligner. FeatureCounts was used to summarize gene expression levels. Neoantigens whose corresponding mutations were in genes with expression level <1 RPKM in either the specific exon or the whole transcript were filtered out. Samples whose total successfully typed HLA alleles (counting both chromosomes) are <8 or none of whose mutations yielded neoantigens were filtered out.
 Guided Tutorial
 ## detect_neoantigen.pl
@@ -61,7 +61,7 @@ percentile_cutoff, rpkm_cutoff, thread, max_mutations, n
 "max_mutations": if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000 
 "n": bundle $n somatic calling jobs into one submission
 design.txt example (6 columns; columns seperated by tab):
-~/somatic_result/1799-01/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R1.fastq.gz ~/ref/hg38/STAR:bam,~/seq/exp/1799-01.bam 
+~/somatic_result/1799-01/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-01.bam 
 ~/somatic_result/1799-02/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-02/ ~/seq/1799-02T.R1.fastq.gz ~/seq/1799-02T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-02.bam 
 ~/somatic_result/1799-03/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-03/ ~/seq/1799-03T.R1.fastq.gz ~/seq/1799-03T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-03.bam
 Command example: perl ~/neoantigen/job_detect_neoantigen.pl design.txt ~neoantigen/example/example.sh 0.02 0.05 hg38 ~/ref/hg38/hg38_genes.gtf ~/neoantigen/code/mhc_i ~/neoantigen/code/mhc_ii 2 1 32 50000 2
