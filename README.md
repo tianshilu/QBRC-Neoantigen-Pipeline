@@ -9,9 +9,9 @@ Exome sequencing can be fastq files or bam files. fastq files must be gzipped. Y
 Main procedures:
 Only frameshift indels, non-frameshift indels, missense and stop-loss mutations that would lead to protein sequence changes and only somatic mutations whose variant allele frequencies (VAFs) were <0.02 in the normal sample and VAFs>0.05 in the tumor samples will be analyzed. For class I HLA proteins (A, B, C), the putative neoantigens of 8-11 amino acid in length are called, and for class II HLA proteins (DRB1 and DQB1/DQA1), the putative neoantigens of 15 amino acids in length are called. Class I and II HLA subtypes were predicted by the ATHLATES tool. Putative neoantigens with amino acid sequences exactly matching known human protein sequences were filtered out. For class I bindings, the IEDB-recommended mode (http://tools.iedb.org/main/) was used for prediction of binding affinities, while for class II binding, NetMHCIIpan embedded in the IEDB toolkit was used. Neoantigens were kept only if the predicted ranks of binding affinities were ≤2%. Tumor RNA-seq data were aligned to the reference genome using the STAR aligner. FeatureCounts was used to summarize gene expression levels. Neoantigens whose corresponding mutations were in genes with expression level <1 RPKM in either the specific exon or the whole transcript were filtered out. Samples whose total successfully typed HLA alleles (counting both chromosomes) are <8 or none of whose mutations yielded neoantigens were filtered out.
 Guided Tutorial
-detect_neoantigen.pl
+## detect_neoantigen.pl
 The code of neotiantigen detection from somatic mutations.
-## Command
+### Command
 perl detect_neoantigen.pl \ somatic_result 
 expression_somatic_result 
 min_normal_cutoff max_normal_cutoff build output fastq1 fastq2 expression_files gtf mhc_i mhc_ii 
