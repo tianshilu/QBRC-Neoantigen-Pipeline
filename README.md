@@ -62,6 +62,6 @@ percentile_cutoff, rpkm_cutoff, thread, max_mutations, n
 "n": bundle $n somatic calling jobs into one submission
 design.txt example (6 columns; columns seperated by tab):
 ~/somatic_result/1799-01/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R1.fastq.gz ~/ref/hg38/STAR:bam,~/seq/exp/1799-01.bam 
-~/somatic_result/1799-02/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-02/ ~/seq/1799-02T.R1.fastq.gz ~/seq/1799-02T.R1.fastq.gz ~/ref/hg38/STAR:bam,~/seq/exp/1799-02.bam 
-~/somatic_result/1799-03/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-03/ ~/seq/1799-03T.R1.fastq.gz ~/seq/1799-03T.R1.fastq.gz ~/ref/hg38/STAR:bam,~/seq/exp/1799-03.bam
+~/somatic_result/1799-02/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-02/ ~/seq/1799-02T.R1.fastq.gz ~/seq/1799-02T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-02.bam 
+~/somatic_result/1799-03/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-03/ ~/seq/1799-03T.R1.fastq.gz ~/seq/1799-03T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-03.bam
 Command example: perl ~/neoantigen/job_detect_neoantigen.pl design.txt ~neoantigen/example/example.sh 0.02 0.05 hg38 ~/ref/hg38/hg38_genes.gtf ~/neoantigen/code/mhc_i ~/neoantigen/code/mhc_ii 2 1 32 50000 2
