@@ -1,0 +1,4 @@
+Sometimes the mhc_ii prediction algorithm will fail in job submission mode, there are two solutions
+
+1) Check the $PATH environmental variables. If there are too many items, delete some of them. This is one source of problem
+2) Another solution is documented here: script/IEDB Solutions Center Re IEDB Tools Help Request.msg
