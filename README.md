@@ -40,7 +40,7 @@ Each line (class) follows this format: "class\ttype1\ttype2\t0". An example: exa
 "rpkm_cutoff": RPKM cutoff for filtering expressed transcripts and exons, recommended: 1 
 "thread": number of threads to use. 
 "max_mutations": if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000
-### Example: perl ~neoantigen/detect_neoantigen.pl ~/somatic_result/1799-01/somatic_mutations_hg38.txt NA 0.02 0.05 hg38 ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R2.fastq.gz ~/seq/exp/1799-01.bam ~/ref/hg38/hg38_genes.gtf ~/neoantigen/code/mhc_i ~/neoantigen/code/mhc_ii 2 1 32 50000
+Example: perl ~neoantigen/detect_neoantigen.pl ~/somatic_result/1799-01/somatic_mutations_hg38.txt NA 0.02 0.05 hg38 ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R2.fastq.gz ~/seq/exp/1799-01.bam ~/ref/hg38/hg38_genes.gtf ~/neoantigen/code/mhc_i ~/neoantigen/code/mhc_ii 2 1 32 50000
 ## job_detect_neoanitgen.pl
 Slurm wrapper for calling somatic mutations and it is easy to change for other job scheduler system by revising this line of code: "system("sbatch ".$job)" and using proper demo job submission shell script.
 ### Command
