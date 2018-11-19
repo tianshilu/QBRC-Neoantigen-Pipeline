@@ -1,4 +1,5 @@
 # The QBRC neoantigen calling pipeline
+![preview](https://github.com/Neoantigen-pipeline/Neoantigen-pipeline/blob/master/qbrc.jpeg)
 ## Introduction
 This neoantigen calling pipeline of Wang lab predicts neoantigens from exome sequencing data. It needs the somatic mutation calling results of the somatic calling pipeline (https://github.com/Somatic-pipeline/Somatic-pipeline.git), the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. The calculation of CSiN, which describes neoantigen clonal balance, is embedded in the pipeline.
 Please visit our website https://www.utsouthwestern.edu/labs/wang-tao/software/ and refer to our paper for more detail of somatic mutation calling pipeline:["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"](url peding). Please cite as ["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"](url peding).
