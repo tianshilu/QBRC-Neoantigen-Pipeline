@@ -1,7 +1,7 @@
 # The QBRC neoantigen calling pipeline
 ![preview](https://github.com/Neoantigen-pipeline/Neoantigen-pipeline/blob/master/qbrc.jpeg)
 ## Introduction
-The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoantigen calling pipeline for human genomics samples. It needs the somatic mutation calling results of the QBRC mutation calling pipeline, the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. It profiles both MHC I and II-binding neoantigens. The calculation of CSiN (Cauchy-Schwarz index of Neoantigens), which describes neoantigen clonal balance, is embedded in the pipeline. Please refer to https://qbrc.swmed.edu/labs/wanglab/index.php for more information. If you used our pipeline in your publication, please cite our paper ["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"] (under review).
+The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoantigen calling pipeline for human genomics samples. It needs the somatic mutation calling results of the QBRC mutation calling pipeline, the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. It profiles both MHC I and II-binding neoantigens. The calculation of CSiN (Cauchy-Schwarz index of Neoantigens), which describes neoantigen clonal balance, is embedded in the pipeline. Please refer to https://qbrc.swmed.edu/labs/wanglab/index.php for more information. If you used our pipeline in your publication, please cite our paper ["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"] (under review) and please also refer to  for liscense information.
 ## Dependencies
 gzip; Rscript; iedb (MHC_I, MHC_II); featureCounts (version>=1.6); novoalign; samtools (version>=1.4), STAR (if providing RNA sequencing fastq files); Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH, copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref); annovar (>=2017Jul16, humandb in default position); python (python 2); mixcr (>=2.1.5); perl (version 5, Parallel::ForkManager installed)
 ## Input files
@@ -30,16 +30,17 @@ You can give one or multiple bam files. But using bam files is not preferred. Sp
 Any class can appear 0 or 1 time in the typing file, but no more than 1 time.
 Each line (class) follows this format: "class\ttype1\ttype2\t0". An example: example/typing.txt
 "expression_files": expression data
-(1) If expression data do not exist at all, use "NA" instead, and accordingly, $gtf and $rpkm_cutoff will not matter anymore
-(2) If raw RNA-Seq fastq files (single-end or paired-end, gzip-ed) are available, use "path-to-STAR-index:path-to-fastq1.gz,path-top-fastq2.gz" or "path-to-STAR-index:path-to-fastq.gz".
-(3) If bam files are available (paired-end),use "path-to-STAR-index:bam,bam_file_path".
+<1> If expression data do not exist at all, use "NA" instead, and accordingly, $gtf and $rpkm_cutoff will not matter anymore
+<2> If raw RNA-Seq fastq files (single-end or paired-end, gzip-ed) are available, use "path-to-STAR-index:path-to-fastq1.gz,path-top-fastq2.gz" or "path-to-STAR-index:path-to-fastq.gz".
+<3> If bam files are available (paired-end),use "path-to-STAR-index:bam,bam_file_path".
 (3) If transcript level and exon level gene expression data are available,compile them into the formats of these two files: example/exon.featureCounts, example/transcript.featureCounts,and specify these two files in the exp_bam input parameter as "counts:path-to-exon-count,path-to-transcript-count" $gtf will not matter anymore. 
 "gtf": gtf file for featureCounts in the genome reference bundle. 
 "mhc_i", "mhc_ii": folders to the iedb mhc1 and mhc2 binding prediction algorithms, http://www.iedb.org/ 
 "percentile_cutoff": percentile cutoff for binding affinity (0-100), recommended: 2 
 "rpkm_cutoff": RPKM cutoff for filtering expressed transcripts and exons, recommended: 1 
 "thread": number of threads to use. 
-"max_mutations": if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000
+"max_mutations": if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000\
+Example data for running the pipeline can be found here 
 ### Example: 
 perl ~neoantigen/detect_neoantigen.pl ~/somatic_result/1799-01/somatic_mutations_hg38.txt NA 0.02 0.05 hg38 ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R2.fastq.gz ~/seq/exp/1799-01.bam ~/ref/hg38/hg38_genes.gtf ~/neoantigen/code/mhc_i ~/neoantigen/code/mhc_ii 2 1 32 50000
 
