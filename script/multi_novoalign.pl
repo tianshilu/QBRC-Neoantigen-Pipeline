@@ -47,7 +47,7 @@ foreach $process (1..$thread)
   }
 
   # novoalign
-  system("novoalign -d ".$index." -f ".$fastq1."_".$process." ".$fastq2."_".
+  system("novoalign -r None -t 10 -o Softclip -d ".$index." -f ".$fastq1."_".$process." ".$fastq2."_".
     $process." ".$command." > ".$path."/novo.sam_".$process);
   unlink($fastq1."_".$process);
   unlink($fastq2."_".$process);
