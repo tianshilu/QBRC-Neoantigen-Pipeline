@@ -8,7 +8,7 @@ If HLA typing information is available, it takes less than 1 hour to get the neo
 64 digits Linux operating system  
 iedb (MHC_I, MHC_II)  
 featureCounts (version>=1.6) 
-novoalign; samtools (version>=1.4) 
+samtools (version>=1.4)  
 perl (version 5, Parallel::ForkManager installed)  
 STAR (if providing RNA sequencing fastq files)   
 annovar (>=2017Jul16, humandb in default position)  
@@ -16,6 +16,7 @@ python (python 2)
 mixcr (>=2.1.5)  
 gzip  
 Rscript  
+novoalign  
 Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref) 
 
 ## Input files
