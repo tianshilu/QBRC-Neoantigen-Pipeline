@@ -4,20 +4,22 @@
 The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoantigen calling pipeline for human genomics samples. It needs the somatic mutation calling results of the QBRC mutation calling pipeline, the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. It profiles both MHC I and II-binding neoantigens. The calculation of CSiN (Cauchy-Schwarz index of Neoantigens), which describes neoantigen clonal balance, is embedded in the pipeline. Please refer to https://qbrc.swmed.edu/labs/wanglab/index.php for more information. If you used our pipeline in your publication, please cite our paper ["Neoantigen Clonal Balance Predicts Response to Checkpoint Inhibitor"] (under review) and please also refer to https://github.com/tianshilu/QBRC-Neoantigen-Pipeline/blob/master/License.txt for liscense information.
 ## Running time
 If HLA typing information is available, it takes less than 1 hour to get the neoantigen calling done. If HLA alleles needs to be typed from DNA sequencing, it usually takes around 2 hours to finish the neoantigen calling.
-## Hardware/Softwares Dependencies
-64 digits Linux operating system  
-iedb (MHC_I, MHC_II)  
-featureCounts (version>=1.6) 
-samtools (version>=1.4)  
-perl (version 5, Parallel::ForkManager installed)  
-STAR (if providing RNA sequencing fastq files)   
-annovar (>=2017Jul16, humandb in default position)  
-python (python 2)  
-mixcr (>=2.1.5)  
-gzip  
-Rscript  
-novoalign  
-Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref) 
+## Dependencies
+* Hardwares:
+   64 digits Linux operating system 
+* Softwares:
+   iedb (MHC_I, MHC_II)  
+   featureCounts (version>=1.6) 
+   samtools (version>=1.4)   
+   STAR (if providing RNA sequencing fastq files)   
+   annovar (>=2017Jul16, humandb in default position) 
+   Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref) 
+   python (python 2)  
+   perl (version 5, Parallel::ForkManager installed) 
+   mixcr (>=2.1.5)  
+   gzip  
+   Rscript  
+   novoalign  
 
 ## Input files
 Exome sequencing can be fastq files or bam files. fastq files must be gzipped. You can choose to input expression data. Expression data can be fastq files single-end or paired-end, gzip-end. Expression data can also be bam files.
