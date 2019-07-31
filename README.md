@@ -50,12 +50,12 @@ percentile_cutoff rpkm_cutoff thread max_mutations
   * <2> If raw RNA-Seq fastq files (single-end or paired-end, gzip-ed) are available, use "path-to-STAR-index:path-to-fastq1.gz,path-top-fastq2.gz" or "path-to-STAR-index:path-to-fastq.gz".
   * <3> If bam files are available (paired-end),use "path-to-STAR-index:bam,bam_file_path".
         If transcript level and exon level gene expression data are available,compile them into the formats of these two files: example/exon.featureCounts, example/transcript.featureCounts,and specify these two files in the exp_bam input parameter as "counts:path-to-exon-count,path-to-transcript-count" $gtf will not matter anymore. 
-  * gtf: gtf file for featureCounts in the genome reference bundle. 
-  * mhc_i, mhc_ii: folders to the iedb mhc1 and mhc2 binding prediction algorithms, http://www.iedb.org/ 
-  * percentile_cutoff: percentile cutoff for binding affinity (0-100), recommended: 2 
-  * rpkm_cutoff: RPKM cutoff for filtering expressed transcripts and exons, recommended: 1 
-  * thread: number of threads to use. 
-  * max_mutations: if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000\
+ * gtf: gtf file for featureCounts in the genome reference bundle. 
+ * mhc_i, mhc_ii: folders to the iedb mhc1 and mhc2 binding prediction algorithms, http://www.iedb.org/ 
+ * percentile_cutoff: percentile cutoff for binding affinity (0-100), recommended: 2 
+ * rpkm_cutoff: RPKM cutoff for filtering expressed transcripts and exons, recommended: 1 
+ * thread: number of threads to use. 
+ * max_mutations: if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000\
 Example data for running the pipeline can be found here https://github.com/Neoantigen-pipeline/QBRC-Neoantigen-Pipeline/tree/master/example_data.
 ### Command Example: 
 ```
@@ -70,21 +70,23 @@ min_normal_cutoff max_normal_cutoff build gtf mhc_i mhc_ii
 percentile_cutoff, rpkm_cutoff, thread, max_mutations, n
 ```
 ### Note:
-"design.txt" : the batch job design file, it has 6 columns separated by \t, they correspond to the $somatic,$expression_somatic, $output, $fastq1, $fastq2, and $exp_bam input variables of detect_neoantigen.pl 
-"example": the demo job submission shell script. A default one is in this folder 
-"min_tumor_cutoff": minimum VAF in tumor sample 
-"max_normal_cutoff": maximum VAF in normal sample 
-"build": human genome build, hg19 or hg38
-"gtf": gtf file for featureCounts 
-"mhc_i", "mhc_ii": folders to the iedb mhc1 and mhc2 binding prediction algorithms, http://www.iedb.org/ 
-"percentile_cutoff": percentile cutoff for binding affinity (0-100), recommended: 2 
-"rpkm_cutoff": RPKM cutoff for filtering expressed transcripts and exons, recommended: 1 
-"thread": number of threads to use. 
-"max_mutations": if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000 
-"n": bundle $n somatic calling jobs into one submission
+* design.txt : the batch job design file, it has 6 columns separated by \t, they correspond to the $somatic,$expression_somatic, $output, $fastq1, $fastq2, and $exp_bam input variables of detect_neoantigen.pl 
+* example : the demo job submission shell script. A default one is in this folder 
+* min_tumor_cutoff : minimum VAF in tumor sample 
+* max_normal_cutoff : maximum VAF in normal sample 
+* build : human genome build, hg19 or hg38
+* gtf : gtf file for featureCounts 
+* mhc_i, "mhc_ii : folders to the iedb mhc1 and mhc2 binding prediction algorithms, http://www.iedb.org/ 
+* percentile_cutoff : percentile cutoff for binding affinity (0-100), recommended: 2 
+* rpkm_cutoff : RPKM cutoff for filtering expressed transcripts and exons, recommended: 1 
+* thread : number of threads to use. 
+* max_mutations : if more than this number of mutations are left after all filtering, the program will abort. Otherwise, it will take too much time. recommended: 50000 
+* n : bundle $n somatic calling jobs into one submission
 ### design.txt example (6 columns; columns seperated by tab):
 ~/somatic_result/1799-01/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-01/ ~/seq/1799-01T.R1.fastq.gz ~/seq/1799-01T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-01.bam 
 ~/somatic_result/1799-02/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-02/ ~/seq/1799-02T.R1.fastq.gz ~/seq/1799-02T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-02.bam 
 ~/somatic_result/1799-03/somatic_mutations_hg38.txt NA ~/neoantigen_result/1799-03/ ~/seq/1799-03T.R1.fastq.gz ~/seq/1799-03T.R1.fastq.gz ~/ref/hg38/STAR:bam, ~/seq/exp/1799-03.bam
 ### Command example: 
+```
 perl ~/neoantigen/job_detect_neoantigen.pl design.txt ~neoantigen/example/example.sh 0.02 0.05 hg38 ~/ref/hg38/hg38_genes.gtf ~/neoantigen/code/mhc_i ~/neoantigen/code/mhc_ii 2 1 32 50000 2
+```
