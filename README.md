@@ -5,19 +5,19 @@ The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoant
 ## Running time
 If HLA typing information is available, it takes less than 1 hour to get the neoantigen calling done. If HLA alleles needs to be typed from DNA sequencing, it usually takes around 2 hours to finish the neoantigen calling.
 ## Hardware/Softwares Dependencies
-64 digits Linux operating system
-gzip
-Rscript
-iedb (MHC_I, MHC_II)
-featureCounts (version>=1.6)
-novoalign; samtools (version>=1.4)
-STAR (if providing RNA sequencing fastq files)
-Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH
-copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref)
-annovar (>=2017Jul16, humandb in default position)
-python (python 2)
-mixcr (>=2.1.5)
-perl (version 5, Parallel::ForkManager installed)
+64 digits Linux operating system  
+gzip  
+Rscript  
+iedb (MHC_I, MHC_II)  
+featureCounts (version>=1.6) 
+novoalign; samtools (version>=1.4)  
+STAR (if providing RNA sequencing fastq files)  
+Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH  
+copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref)  
+annovar (>=2017Jul16, humandb in default position)  
+python (python 2)  
+mixcr (>=2.1.5)  
+perl (version 5, Parallel::ForkManager installed)  
 
 ## Input files
 Exome sequencing can be fastq files or bam files. fastq files must be gzipped. You can choose to input expression data. Expression data can be fastq files single-end or paired-end, gzip-end. Expression data can also be bam files.
