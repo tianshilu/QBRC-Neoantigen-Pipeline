@@ -23,19 +23,19 @@ perl (version 5, Parallel::ForkManager installed)
 Exome sequencing can be fastq files or bam files. fastq files must be gzipped. You can choose to input expression data. Expression data can be fastq files single-end or paired-end, gzip-end. Expression data can also be bam files.
 ## Main procedures:
 * Extract mutations meeting following criteria:
- * (1) Only frameshift indels, non-frameshift indels, missense and stop-loss mutations that would lead to protein sequence changes 
- * (2) Only variant allele frequencies (VAFs) downloadedwere <0.02 in the normal sample and VAFs>0.05 in the tumor samples will be analyzed
+  (1) Only frameshift indels, non-frameshift indels, missense and stop-loss mutations that would lead to protein sequence changes 
+  (2) Only variant allele frequencies (VAFs) downloadedwere <0.02 in the normal sample and VAFs>0.05 in the tumor samples will be analyzed
 * Neoantigen length:
-For class I HLA proteins (A, B, C), the putative neoantigens of 8-11 amino acid in length are called, and for class II HLA proteins (DRB1 and DQB1/DQA1), the putative neoantigens of 15 amino acids in length are called.
+  For class I HLA proteins (A, B, C), the putative neoantigens of 8-11 amino acid in length are called, and for class II HLA proteins (DRB1 and DQB1/DQA1), the putative neoantigens of 15 amino acids in length are called.
 * HLA typing:
- * (1) Class I and II HLA subtypes were predicted by the ATHLATES tool. Putative neoantigens with amino acid sequences exactly matching known human protein sequences were filtered out. 
+   Class I and II HLA subtypes were predicted by the ATHLATES tool. Putative neoantigens with amino acid sequences exactly matching known human protein sequences were filtered out. 
 * Neoantigen-HLA binding affinity:
- * (1) For class I bindings, the IEDB-recommended mode (http://tools.iedb.org/main/) was used for prediction of binding affinities, while for class II binding, NetMHCIIpan embedded in the IEDB toolkit was used.
- * (2) Neoantigens were kept only if the predicted ranks of binding affinities were ≤2%. Tumor RNA-seq data were aligned to the reference genome using the STAR aligner. 
- * (3) FeatureCounts was used to summarize gene expression levels. 
+  (1) For class I bindings, the IEDB-recommended mode (http://tools.iedb.org/main/) was used for prediction of binding affinities, while for class II binding, NetMHCIIpan embedded in the IEDB toolkit was used.
+  (2) Neoantigens were kept only if the predicted ranks of binding affinities were ≤2%. Tumor RNA-seq data were aligned to the reference genome using the STAR aligner. 
+  (3) FeatureCounts was used to summarize gene expression levels. 
 * Neoantigen expression: 
- * Neoantigens whose corresponding mutations were in genes with expression level <1 RPKM in either the specific exon or the whole transcript were filtered out. 
- * Samples whose total successfully typed HLA alleles (counting both chromosomes) are <8 or none of whose mutations yielded neoantigens were filtered out.
+  Neoantigens whose corresponding mutations were in genes with expression level <1 RPKM in either the specific exon or the whole transcript were filtered out. 
+  Samples whose total successfully typed HLA alleles (counting both chromosomes) are <8 or none of whose mutations yielded neoantigens were filtered out.
 
 ## Guided Tutorial
 ## detect_neoantigen.pl
