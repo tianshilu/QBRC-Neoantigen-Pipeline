@@ -5,9 +5,7 @@ The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoant
 ## Running time
 If HLA typing information is available, it takes less than 1 hour to get the neoantigen calling done. If HLA alleles needs to be typed from DNA sequencing, it usually takes around 2 hours to finish the neoantigen calling.
 ## Dependencies
-* Hardwares:
    64 digits Linux operating system 
-* Softwares:
    iedb (MHC_I, MHC_II)  
    featureCounts (version>=1.6) 
    samtools (version>=1.4)   
