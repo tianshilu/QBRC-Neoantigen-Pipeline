@@ -13,13 +13,13 @@ If HLA typing information is available, it takes less than 1 hour to get the neo
    samtools (version>=1.4)   
    STAR (if providing RNA sequencing fastq files)   
    annovar (>=2017Jul16, humandb in default position) 
+   novoalign 
    Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref) 
    python (python 2)  
    perl (version 5, Parallel::ForkManager installed) 
    mixcr (>=2.1.5)  
    gzip  
-   Rscript  
-   novoalign  
+   Rscript   
 
 ## Input files
 Exome sequencing can be fastq files or bam files. fastq files must be gzipped. You can choose to input expression data. Expression data can be fastq files single-end or paired-end, gzip-end. Expression data can also be bam files.
