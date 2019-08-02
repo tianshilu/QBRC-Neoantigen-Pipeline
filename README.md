@@ -5,16 +5,16 @@ The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoant
 ## Running time
 If HLA typing information is available, it takes less than 1 hour to get the neoantigen calling done. If HLA alleles needs to be typed from DNA sequencing, it usually takes around 2 hours to finish the neoantigen calling.
 ## Dependencies
-   64 digits Linux operating system 
+   64 digits Linux operating system  
    iedb (MHC_I, MHC_II)  
-   featureCounts (version>=1.6) 
+   featureCounts (version>=1.6)  
    samtools (version>=1.4)   
    STAR (if providing RNA sequencing fastq files)   
-   annovar (>=2017Jul16, humandb in default position) 
-   novoalign 
-   Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref) 
+   annovar (>=2017Jul16, humandb in default position)  
+   novoalign  
+   Athlates (need lib64 of gcc>=5.4.0 in LD_LIBRARY_PATH copy files under data/msa_for_athlates to Athlates_2014_04_26/db/msa and data/ref.nix to Athlates_2014_04_26/db/ref)  
    python (python 2)  
-   perl (version 5, Parallel::ForkManager installed) 
+   perl (version 5, Parallel::ForkManager installed)  
    mixcr (>=2.1.5)  
    gzip  
    Rscript   
