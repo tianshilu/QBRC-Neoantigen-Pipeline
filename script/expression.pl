@@ -66,19 +66,26 @@ unlink($bam_file);
 system("mixcr align -s hs -f -p rna-seq -t ".$thread." -OallowPartialAlignments=true ".$fastq." ".
   $output_folder."/alignments.vdjca > ".$output_folder."/mixcr1.txt");
 system("mixcr assemblePartial -f ".$output_folder."/alignments.vdjca ".$output_folder.
-  "/alignment_contigs.vdjca > ".$output_folder."/mixcr2.txt");
-system("mixcr assemble -f -t ".$thread." ".$output_folder."/alignment_contigs.vdjca ".$output_folder.
-  "/clones.clns > ".$output_folder."/mixcr3.txt");
+  "/alignment_contigs.vdjca > ".$output_folder."/mixcr21.txt");
+system("mixcr assemblePartial -f ".$output_folder."/alignment_contigs.vdjca ".$output_folder.
+  "/alignment_contigs2.vdjca > ".$output_folder."/mixcr22.txt");
+system("mixcr extendAlignments -f ".$output_folder."/alignment_contigs2.vdjca ".$output_folder.
+  "/alignmentsRescued_2_extended.vdjca > ".$output_folder."/mixcr3.txt");
+system("mixcr assemble -ObadQualityThreshold=15 -OaddReadsCountOnClustering=true -f -t ".
+  $thread." ".$output_folder."/alignmentsRescued_2_extended.vdjca ".
+  $output_folder."/clones.clns > ".$output_folder."/mixcr4.txt");
 system("mixcr exportClones -f ".$output_folder."/clones.clns ".$output_folder.
-  "/clones.txt > ".$output_folder."/mixcr4.txt");
+  "/clones.txt > ".$output_folder."/mixcr5.txt");
 
-unlink($output_folder."/fastq1.fastq");
-unlink($output_folder."/fastq2.fastq");
 unlink($output_folder."/alignments.vdjca");
 unlink($output_folder."/alignment_contigs.vdjca");
+unlink($output_folder."/alignment_contigs2.vdjca");
+unlink($output_folder."/alignmentsRescued_2_extended.vdjca");
 unlink($output_folder."/clones.clns");
 unlink($output_folder."/mixcr1.txt");
-unlink($output_folder."/mixcr2.txt");
+unlink($output_folder."/mixcr21.txt");
+unlink($output_folder."/mixcr22.txt");
 unlink($output_folder."/mixcr3.txt");
 unlink($output_folder."/mixcr4.txt");
+unlink($output_folder."/mixcr5.txt");
 
