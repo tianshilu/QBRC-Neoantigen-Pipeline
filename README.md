@@ -1,7 +1,8 @@
 # The QBRC neoantigen calling pipeline 
 ![preview](https://github.com/tianshilu/QBRC-Neoantigen-Pipeline/blob/master/neoantigen_flow.jpg)
 ## Introduction
-The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoantigen calling pipeline for human genomics samples. It needs the somatic mutation calling results of the QBRC mutation calling pipeline, the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. It profiles both MHC I and II-binding neoantigens. The calculation of CSiN (Cauchy-Schwarz index of Neoantigens), which describes neoantigen clonal balance, is embedded in the pipeline. Please refer to https://qbrc.swmed.edu/labs/wanglab/index.php for more information. 
+The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoantigen calling pipeline for human genomics samples. It needs the somatic mutation calling results of the QBRC mutation calling pipeline, the tumor/normal exome-seq data for HLA typing, and optionally RNA-seq data for filtering neoantigens called from the exome-seq data. It profiles both MHC I and II-binding neoantigens. The calculation of CSiN (Cauchy-Schwarz index of Neoantigens), which describes neoantigen clonal balance, is embedded in the pipeline. \
+Please refer to the lab website of Dr. Tao Wang, https://qbrc.swmed.edu/labs/wanglab/index.php, for more information. 
 ## Citation
 * If you use the pipeline, please cite: \
 **"Tumor Neoantigenicity Assessment with CSiN Score Incorporates Clonality and Immunogenicity to Predict Immunotherapy Outcomes"**, Science Immunology 
