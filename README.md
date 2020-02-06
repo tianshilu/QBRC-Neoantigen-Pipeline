@@ -5,7 +5,8 @@ The QBRC neoantigen calling pipeline is a comprehensive and user-friendly neoant
 Please refer to the lab website of Dr. Tao Wang, https://qbrc.swmed.edu/labs/wanglab/index.php, for more information. 
 ## Citation
 * If you use the pipeline, please cite: \
-**"Tumor Neoantigenicity Assessment with CSiN Score Incorporates Clonality and Immunogenicity to Predict Immunotherapy Outcomes"**, Science Immunology 
+T. Lu, S. Wang, L. Xu, Q. Zhou, N. Singla, J. Gao, S. Manna, L. Pop, Z. Xie, M. Chen, J. J. Luke, J. Brugarolas, R. Hannan, T. Wang, **Tumor neoantigenicity assessment with CSiN score incorporates
+clonality and immunogenicity to predict immunotherapy outcomes.** Sci. Immunol. 5, eaaz3199 (2020).
 * For liscence information, please refer to: \
 https://github.com/tianshilu/QBRC-Neoantigen-Pipeline/blob/master/License.txt
 
