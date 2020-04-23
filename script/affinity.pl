@@ -11,7 +11,7 @@ use Scalar::Util qw(looks_like_number);
 use Parallel::ForkManager;
 
 my ($mhc1,$mhc2,$somatic,$typing,$max_rank)=@ARGV;
-my (@items,$line,$command,$type,$type1,$type2,$class,$file_fa,$file_neoantigen);
+my (@items,$line,$command,$type,@types,$class,$file_fa,$file_neoantigen);
 my ($pid,$pm,$protein,$path,%protein,%mutations,$i,$len,$len1);
 my @dqa1=("","");
 my %neoantigen_len=("I"=>[8..11],"II"=>[15]); # length of neoantigen for HLA A/B/DRB/DQB
@@ -52,19 +52,16 @@ close(TP);
 
 # run iedb analysis
 open(TP,$typing);
-$pm=Parallel::ForkManager->new(8);
+$pm=Parallel::ForkManager->new(28);
 
 while ($line=<TP>)
 {
-  if ($line=~/DQA1/) {next;} # skip DQA1, only process DQB1
-  $pid = $pm -> start and next;
-
   # parse typing file
-  print "Working on ".$line;
+  if ($line=~/DQA1/) {next;} # skip DQA1, only process DQB1
   @items=split("\t",$line);
   $type=$items[0];
-  $type1=guess_dqa($items[1],$items[2],\@dqa1,0);
-  $type2=guess_dqa($items[2],$items[1],\@dqa1,1);
+  $types[0]=guess_dqa($items[1],$items[2],\@dqa1,0);
+  $types[1]=guess_dqa($items[2],$items[1],\@dqa1,1);
 
   if ($type eq "A" || $type eq "B" || $type eq "C") 
   {
@@ -99,11 +96,13 @@ while ($line=<TP>)
     close(FILE_FA);
 
     # IEDB
-    run_IEDB($command,$type1,$len1,$file_fa,$file_neoantigen."_1.txt",\%mutations,$typing."_".$type);
-    run_IEDB($command,$type2,$len1,$file_fa,$file_neoantigen."_2.txt",\%mutations,$typing."_".$type);
+    foreach (1..2)
+    {
+      $pid = $pm -> start and next;
+      run_IEDB($command,$types[$_-1],$len1,$file_fa,$file_neoantigen."_".$_.".txt",\%mutations,$typing."_".$type);
+      $pm->finish;
+    }
   }
-
-  $pm->finish;
 }
 
 close(TP);

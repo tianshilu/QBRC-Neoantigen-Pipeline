@@ -96,7 +96,8 @@ neoantigen$rna_normal_var=neoantigen$rna_normal_ref=
   neoantigen$rna_tumor_var=neoantigen$rna_tumor_ref=NA
 if (expression_somatic!="NA")
 {
-  rna_somatic=read.table(expression_somatic,stringsAsFactors = F,sep="\t",header=T)
+  rna_somatic=read.table(expression_somatic,stringsAsFactors = F,sep="\t",header=T,
+                         colClasses=c("Ref"="character","Alt"="character"))
   for (i in 1:dim(neoantigen)[1])
   {
     j=which(rna_somatic$Chr==neoantigen$chr[i] & 

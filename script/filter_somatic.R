@@ -11,7 +11,8 @@ max_mutations=as.numeric(args[7])
 
 unlink(output)
 if (!file.exists(input)) {stop(paste(input,"doesn't exist!\n"))}
-mutations=read.table(input,sep="\t",stringsAsFactors = F,header=T)
+mutations=read.table(input,sep="\t",stringsAsFactors = F,header=T,
+                     colClasses=c("Ref"="character","Alt"="character"))
 
 #########  filter SNPs  ######################
 

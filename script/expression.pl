@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Cwd 'abs_path';
 
-# bam file
+# bam file ("index:bam,bam_file") or fastq files ("index:fastq1,fastq2")
 # gtf file
 # output folder
 # number of threads to use
@@ -69,7 +69,7 @@ system("mixcr assemblePartial -f ".$output_folder."/alignments.vdjca ".$output_f
   "/alignment_contigs.vdjca > ".$output_folder."/mixcr21.txt");
 system("mixcr assemblePartial -f ".$output_folder."/alignment_contigs.vdjca ".$output_folder.
   "/alignment_contigs2.vdjca > ".$output_folder."/mixcr22.txt");
-system("mixcr extendAlignments -f ".$output_folder."/alignment_contigs2.vdjca ".$output_folder.
+system("mixcr extend -f ".$output_folder."/alignment_contigs2.vdjca ".$output_folder.
   "/alignmentsRescued_2_extended.vdjca > ".$output_folder."/mixcr3.txt");
 system("mixcr assemble -ObadQualityThreshold=15 -OaddReadsCountOnClustering=true -f -t ".
   $thread." ".$output_folder."/alignmentsRescued_2_extended.vdjca ".

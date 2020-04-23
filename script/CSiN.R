@@ -54,7 +54,7 @@ neoantigen_object$neoantigen=neoantigen
 if (file.exists(clones_file))
 {
   clones=read.table(clones_file,sep="\t",header=T,stringsAsFactors = F)[,
-    c("cloneId","cloneCount","cloneFraction","clonalSequence","allVHitsWithScore",
+    c("cloneId","cloneCount","cloneFraction","allVHitsWithScore",
     "allDHitsWithScore","allJHitsWithScore","allCHitsWithScore","aaSeqCDR3")]
   if (dim(clones)[1]>500) {clones=clones[1:500,]}
   tr_a=clones[grepl("TRA",clones$allVHitsWithScore),]
