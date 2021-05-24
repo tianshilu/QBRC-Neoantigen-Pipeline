@@ -4,11 +4,19 @@ args=commandArgs(trailingOnly = TRUE)
 somatic=args[1]
 output=args[2]
 path=args[3]
+debug=as.numeric(args[4])
 
 #######  read neoantigen binding strength  ##################
 
 source(paste(path,"/expressed_neoantigen_function.R",sep=""))
 unlink(paste(somatic,"_error_no_valid_neoantigen.txt",sep=""))
+
+if (debug==1) 
+{
+  system(paste("mkdir ",somatic,sep=""))
+  system(paste("cp ",somatic,"*txt ",somatic,sep=""))
+}
+
 neoantigen=read_neoantigen(somatic)
 if (is.null(neoantigen) || dim(neoantigen)[1]==0) 
 {

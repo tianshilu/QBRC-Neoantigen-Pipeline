@@ -41,7 +41,7 @@ while ($region=<FILE_IN1>)
   ($chr,$strand,$start,$end,$name)=split("\t",$region);
   $s=floor($start/$jump)*$jump+1; # this is the anchor
   if ($s==$start+1) {$s-=$jump;} # boundary case
-  unless (exists $index{$chr."_".$s}) {print "The following region does not exist ".$region;}
+  unless (exists $index{$chr."_".$s}) {die "The following region does not exist ".$region;}
   $sequence="";
 
   # the first segment
@@ -53,7 +53,7 @@ while ($region=<FILE_IN1>)
   while ($line_s<=$start) # until the line in which $start resides is read
   {
     $str=<FILE_IN2>;
-    unless (defined $str && $str!~/>/) {print "The following region does not exist ".$region;}
+    unless (defined $str && $str!~/>/) {die "The following region does not exist ".$region;}
     $line_s+=(length($str)-1); # the coordinate of the first base on each line
   }
 
@@ -78,7 +78,7 @@ while ($region=<FILE_IN1>)
   while ($line_s<=$end)
   {
     $str=<FILE_IN2>;
-    unless (defined $str && $str!~/>/) {print "The following region does not exist ".$region;}
+    unless (defined $str && $str!~/>/) {die "The following region does not exist ".$region;}
     $str=~s/\n//;
     $line_s+=length($str);
     $sequence.=$str;
@@ -100,7 +100,7 @@ sub print_seq
 {
   my ($sequence,$strand,$len,$region,$format,$name)=@_;
 
-  if ($len!=length($sequence)) {print "The following region does not exist ".$region;}
+  if ($len!=length($sequence)) {die "The following region does not exist ".$region;}
 
   if ($strand eq "-")
   {

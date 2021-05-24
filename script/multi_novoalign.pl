@@ -27,8 +27,16 @@ foreach $process (1..$thread)
   $pipes{$process}->autoflush(1);
 
   # split fastq file
-  open(FILE_IN1,$fastq1) or die "Cannot open fastq file to read!\n";
-  open(FILE_IN2,$fastq2) or die "Cannot open fastq file to read!\n";
+  if ($fastq1=~/gz$/ && -B $fastq1)
+  {
+    open(FILE_IN1,"zcat ".$fastq1." |") or die "Cannot open fastq file to read!\n";
+    open(FILE_IN2,"zcat ".$fastq2." |") or die "Cannot open fastq file to read!\n";
+  }else
+  {
+    open(FILE_IN1,$fastq1) or die "Cannot open fastq file to read!\n";
+    open(FILE_IN2,$fastq2) or die "Cannot open fastq file to read!\n";
+  }
+
   open(FILE_OUT1,">".$fastq1."_".$process) or die "Cannot open fastq file to write!\n";
   open(FILE_OUT2,">".$fastq2."_".$process) or die "Cannot open fastq file to write!\n";
   $count=0;
