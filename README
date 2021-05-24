@@ -1,0 +1,13 @@
+Works for human
+
+detect_neoantigen.pl		pipeline for neoantigen calling
+job_detect_neoantigen.pl	biohpc submission wrapper for detect_neoantigen.pl
+
+Updates
+
+12/13/2018: Stable version release
+07/31/2019: Added "-t 10" and "-o Softclip" to the novoalign options
+08/19/2019: Optimized the pipeline to call TCR with mixcr to increase sensitivity
+09/25/2019: When RNA-Seq data are not provided, mixcr will now be called for exome-seq data
+04/05/2021: Cleared a bug with calling of TCRs when no RNA-seq data are provided
+04/27/2021: Added automatic handling of .gz fastq files in hla.pl

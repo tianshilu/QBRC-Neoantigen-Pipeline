@@ -6,7 +6,7 @@
 #       $output, $fastq1, $fastq2, and $exp_bam input variables of detect_neoantigen.pl
 #       (1) Commented lines ("#" at the front) are skipped
 #       (2) if providing RNA-Seq fastq file(s) in lieu of $exp_bam, 
-#           one STAR aligner index is already provided in the hg38 folder
+#           one STAR aligner index is already provided in the hg38/hg19 folder
 # example: the demo job submission shell script. A default one is in this folder
 # max_normal_cutoff, min_tumor_cutoff, build, gtf, mhc_i, mhc_ii, percentile_cutoff, rpkm_cutoff, thread, max_mutations: follow detect_neoantigen.pl
 # n: bundle $n somatic calling jobs into one submission
@@ -76,5 +76,5 @@ if ($i % $n!=0)
 # /home2/twang6/data/genomes/hg38/hg38_genes.gtf \
 # /project/bioinformatics/Xiao_lab/shared/neoantigen/code/mhc_i \
 # /project/bioinformatics/Xiao_lab/shared/neoantigen/code/mhc_ii \
-# 3 1 32 50000 2
+# 2 1 32 50000 2
 
