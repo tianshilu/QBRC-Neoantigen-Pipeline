@@ -47,9 +47,12 @@ while ($line=<JOB>)
 
   # write submission job
   @items=split("\t",$line);
+  system("rm -f -r ".$items[2]);
+  system("mkdir ".$items[2]);
   print SCRIPT "perl ".$path."/detect_neoantigen.pl ".$items[0]." ".$items[1]." ".$max_normal_cutoff." ".
     $min_tumor_cutoff." ".$build." ".$items[2]." ".$items[3]." ".$items[4]." ".$items[5]." ".$gtf.
-    " ".$mhc_i." ".$mhc_ii." ".$percentile_cutoff." ".$rpkm_cutoff." ".$thread." ".$max_mutations."\n";
+    " ".$mhc_i." ".$mhc_ii." ".$percentile_cutoff." ".$rpkm_cutoff." ".$thread." ".$max_mutations.
+    " 2> ".$items[2]."/job_error.txt 1> ".$items[2]."/job_output.txt\n";
 
   if ($i % $n==0)
   {

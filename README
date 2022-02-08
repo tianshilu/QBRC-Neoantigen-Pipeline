@@ -11,3 +11,4 @@ Updates
 09/25/2019: When RNA-Seq data are not provided, mixcr will now be called for exome-seq data
 04/05/2021: Cleared a bug with calling of TCRs when no RNA-seq data are provided
 04/27/2021: Added automatic handling of .gz fastq files in hla.pl
+01/25/2022: Writing stderr and stdout to job folders
